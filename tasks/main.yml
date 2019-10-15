@@ -1,0 +1,11 @@
+---
+
+- name: Set timezone
+  become: True
+  timezone:
+    name: "{{ time_timezone }}"
+  notify: time configuration changed
+
+- name: Configure systemd-timesyncd
+  include_tasks: timesyncd.yml
+  when: ansible_service_mgr == "systemd"
